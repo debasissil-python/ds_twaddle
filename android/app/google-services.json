@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "209918652045",
+    "project_id": "twaddle-812f8",
+    "storage_bucket": "twaddle-812f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209918652045:android:3e0e635abe474f49d8fcc4",
+        "android_client_info": {
+          "package_name": "hobbynetworking.com.ds_twaddle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209918652045-3oo3693vq91lqk79l82p3j9mlfck9vim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc2LJoYpTjVbVEgL4rPGY1MH9yiqllQVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209918652045-3oo3693vq91lqk79l82p3j9mlfck9vim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

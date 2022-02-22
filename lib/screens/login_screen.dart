@@ -1,6 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:ds_twaddle/buttons.dart';
+//import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../animated_texts.dart';
+import '../constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,6 +18,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   Icon home = const Icon(Icons.home);
   Icon registration = const Icon(Icons.app_registration);
+  late String email;
+  late String password;
+  late String displayName;
+  final _authentication = FirebaseAuth.instance;
+  bool showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushNamed(context, '/');
           },
         ),
+        centerTitle: true,
+        title: AnimatedTitle(
+          text: 'twaddle',
+          fontSize: 25.0,
+        ),
         actions: [
           IconButton(
             color: Colors.black,
@@ -37,155 +53,105 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       ),
-      body: ListView(children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Image.asset(
-                  'images/Chat.png',
-                  scale: 1,
-                ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextField(
-                onChanged: (value) {
-                  //Do something with the user input.
-                },
-                decoration: InputDecoration(
-                  hintText: 'Enter your email',
-                  hintStyle: TextStyle(
-                      color: Colors.blueGrey, fontStyle: FontStyle.italic),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueGrey.shade700, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.orangeAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 28.0,
-              ),
-              TextField(
-                onChanged: (value) {
-                  //Do something with the user input.
-                },
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                  hintStyle: TextStyle(
-                      color: Colors.blueGrey, fontStyle: FontStyle.italic),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueGrey.shade700, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.orangeAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 34.0,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 6.0),
-                child: Material(
-                  color: Colors.lightBlue,
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  elevation: 5.0,
-                  child: MaterialButton(
-                    height: 58,
-                    minWidth: 100,
-                    focusElevation: 25,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13)),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/chat');
-                    },
-                    child: Stack(
-                      children: [
-                        Text(
-                          "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 28,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.white,
-                            //color: Colors.blueGrey.shade900,
-                          ),
-                        ),
-                        const Text(
-                          "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 28,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    color: const Color(0xFFF7CA18),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  Text('Not a Member ?'),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/registration');
-                    },
-                    child: Text(
-                      'Click here to Register',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'fuelled by:\n Hobby Networking',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Pacifico',
-                  color: Colors.blueGrey.shade600,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w300,
-                  letterSpacing: 2,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
+      body: ModalProgressHUD(
+        color: Colors.black,
+        opacity: 0.5,
+        progressIndicator: CircularProgressIndicator(
+          backgroundColor: Colors.orange,
         ),
-      ]),
+        inAsyncCall: showSpinner,
+        child: ListView(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Hero(
+                  tag: 'logo',
+                  child: Image.asset(
+                    'images/Chat.png',
+                    scale: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    email = value.trim();
+                  },
+                  decoration: kTextField.copyWith(hintText: 'Enter your email'),
+                ),
+                SizedBox(
+                  height: 28.0,
+                ),
+                TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    password = value;
+                  },
+                  decoration:
+                      kTextField.copyWith(hintText: 'Enter your password'),
+                ),
+                SizedBox(
+                  height: 34.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 6.0),
+                  child: Buttons(
+                    text: 'Login',
+                    onPressed: () async {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      try {
+                        await _authentication.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        Navigator.pushNamed(context, '/chat');
+                        showToastError(
+                            'Congratulations! \nYou have been Successfully logged in !',
+                            context);
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } catch (e) {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                        showToastError(
+                            'Please enter a valid \nEmail Id \nor \nPassword',
+                            context);
+                      }
+                    },
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text('Not a Member ?'),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/registration');
+                      },
+                      child: Text(
+                        'Click here to Register',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                kFuelledBy,
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }

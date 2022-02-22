@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:ds_twaddle/buttons.dart';
+import '../constants.dart';
+import '../animated_texts.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -9,11 +12,37 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation animateColor;
+  late Animation animateLogo;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    animateColor =
+        ColorTween(begin: Colors.red, end: Colors.white).animate(controller);
+    //controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animateColor.value,
       body: ListView(
         children: [
           Padding(
@@ -26,129 +55,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   tag: "logo",
                   child: Image.asset(
                     'images/Chat.png',
-                    scale: 2,
                   ),
                 ),
-                Text(
-                  'twaddle',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Pacifico',
-                    color: Colors.blueGrey.shade900,
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 2,
-                    fontStyle: FontStyle.italic,
-                  ),
+                AnimatedTitle(
+                  text: 'twaddle',
+                  fontSize: 45.0,
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
-                Text(
-                  'Connecting like minded People Globally',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade600,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 2,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
+                kAppInfo,
                 SizedBox(
                   height: 30,
                 ),
-                MaterialButton(
-                  height: 58,
-                  minWidth: 100,
-                  focusElevation: 25,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13)),
-                  onPressed: () {
+                Buttons(
+                  text: 'Login',
+                  onPressed: () async {
                     Navigator.pushNamed(context, '/login');
                   },
-                  child: Stack(
-                    children: [
-                      Text(
-                        "Login",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 3
-                            ..color = Colors.white,
-                          //color: Colors.blueGrey.shade900,
-                        ),
-                      ),
-                      const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  color: const Color(0xFFF7CA18),
                 ),
                 SizedBox(
                   height: 25,
                 ),
-                MaterialButton(
-                  height: 58,
-                  minWidth: 100,
-                  focusElevation: 25,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13)),
+                Buttons(
+                  text: 'Registration',
                   onPressed: () {
                     Navigator.pushNamed(context, '/registration');
                   },
-                  child: Stack(
-                    children: [
-                      Text(
-                        "Register",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 3
-                            ..color = Colors.white,
-                          //color: Colors.blueGrey.shade900,
-                        ),
-                      ),
-                      const Text(
-                        "Register",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  color: const Color(0xFFF7CA18),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                Text(
-                  'fuelled by:\n Hobby Networking',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Pacifico',
-                    color: Colors.blueGrey.shade600,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w300,
-                    letterSpacing: 2,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
               ],
             ),
           ),
+          kFuelledBy,
         ],
       ),
     );
