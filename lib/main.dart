@@ -1,10 +1,6 @@
-import 'package:ds_twaddle/screens/chat_screen.dart';
-import 'package:ds_twaddle/screens/email_registration.dart';
-import 'package:ds_twaddle/screens/login_screen.dart';
-import 'package:ds_twaddle/screens/registration_screen.dart';
+import 'package:ds_twaddle/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ds_twaddle/screens/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,13 +13,9 @@ class Twaddle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(initialRoute: '/', routes: {
-      '/': (context) => const WelcomeScreen(),
-      '/registration': (context) => const RegistrationScreen(),
-      '/emailRegistration': (context) => const EmailRegistration(),
-      '/login': (context) => const LoginScreen(),
-      '/chat': (context) => const ChatScreen(),
-    });
+    return const MaterialApp(
+      home: Wrapper(),
+    );
   }
 }
 

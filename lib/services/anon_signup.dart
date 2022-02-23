@@ -4,7 +4,7 @@ import 'package:ds_twaddle/models/users.dart';
 class AuthService {
   final FirebaseAuth _authService = FirebaseAuth.instance;
 
-  // User object based on Firebase User
+  // Create User object based on Firebase User
   FirebaseUser? _anonUserFromFirebase(User user) {
     return user != null ? FirebaseUser(uid: user.uid) : null;
   }

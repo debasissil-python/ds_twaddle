@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
 //import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../animated_texts.dart';
-import '../constants.dart';
+import '../../animated_texts.dart';
+import '../../constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {

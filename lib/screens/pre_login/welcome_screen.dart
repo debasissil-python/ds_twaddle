@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
-import '../constants.dart';
-import '../animated_texts.dart';
+import '../../constants.dart';
+import '../../animated_texts.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

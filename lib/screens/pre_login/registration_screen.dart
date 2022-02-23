@@ -3,8 +3,8 @@
 import 'package:ds_twaddle/services/anon_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
-import '../animated_texts.dart';
-import '../constants.dart';
+import '../../animated_texts.dart';
+import '../../constants.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -189,9 +189,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               });
                               dynamic result = await _authAnon.signUpAnon();
                               if (result == null) {
-                                print('error signing in');
+                                //print('error signing in');
+                                showToastError(
+                                    'Error signing in. \nPlease sign in again.',
+                                    context);
                               } else {
-                                print(result.uid);
+                                //print(result.uid);
                                 Navigator.pushNamed(context, '/chat');
                                 showToastError(
                                     'Congratulations! \nYou have been Successfully signed in \nAnonymously as - \n \n' +
