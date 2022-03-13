@@ -1,4 +1,4 @@
-# ds_egalpo
+# ds_twaddle
 
 A New Edge Chat App that Connects with All the Like Minded People Globally
 
