@@ -1,15 +1,23 @@
-import 'package:ds_twaddle/screens/post_login/chat_screen.dart';
+import 'package:ds_twaddle/models/users.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../home.dart';
+import 'package:ds_twaddle/screens/post_login/chat_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = Provider.of<TheUser?>(context);
+    //print(currentUser?.uid);
+
     // Returns either Home or Chat Screen
-    return Home();
+    if (currentUser == null) {
+      return const Home();
+    } else {
+      return const ChatScreen();
+    }
     //Home();
     //ChatScreen();
   }

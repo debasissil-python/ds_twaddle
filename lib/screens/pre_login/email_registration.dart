@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
 import '../../animated_texts.dart';
 import '../../constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../services/auth.dart';
+//import 'package:ds_twaddle/screens/pre_login/login_screen.dart';
 //import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class EmailRegistration extends StatefulWidget {
   const EmailRegistration({Key? key}) : super(key: key);
@@ -16,12 +18,15 @@ class EmailRegistration extends StatefulWidget {
 class _EmailRegistrationState extends State<EmailRegistration> {
   Icon home = const Icon(Icons.home);
   Icon login = const Icon(Icons.login);
-  late String displayName;
-  late String email;
-  late String password;
 
-  final _authentication = FirebaseAuth.instance;
+  final AuthService _authEmail = AuthService();
+  final _formKey = GlobalKey<FormState>();
   bool showSpinner = false;
+
+  //text field state
+  String name = '';
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -68,112 +73,131 @@ class _EmailRegistrationState extends State<EmailRegistration> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13),
                 color: Colors.white,
-                // boxShadow: const [
-                //   BoxShadow(
-                //     color: Color(0xFFF2C8C8),
-                //     blurRadius: 6,
-                //     spreadRadius: 4,
-                //   ),
-                //]
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  TextField(
-                    keyboardType: TextInputType.name,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      try {
-                        displayName = value;
-                      } catch (e) {
-                        print('Username Error : $e');
-                      }
-                    },
-                    decoration:
-                        kTextField.copyWith(hintText: 'Enter your username'),
-                  ),
-                  const SizedBox(
-                    height: 28.0,
-                  ),
-                  TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      try {
-                        email = value.trim();
-                      } catch (e) {
-                        print('Email Address Error : $e');
-                      }
-                    },
-                    //hintText: 'Enter your email',
-                    decoration:
-                        kTextField.copyWith(hintText: 'Enter your email'),
-                  ),
-                  const SizedBox(
-                    height: 28.0,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      password = value;
-                    },
-                    //hintText: 'Enter your password',
-                    decoration:
-                        kTextField.copyWith(hintText: 'Enter your password'),
-                  ),
-                  const SizedBox(
-                    height: 45.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Buttons(
-                      text: 'Register',
-                      onPressed: () async {
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Please enter your name' : null,
+                      onChanged: (displayName) {
                         setState(() {
-                          showSpinner = true;
+                          name = displayName;
                         });
-                        try {
-                          await _authentication.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                          Navigator.pushNamed(context, '/chat');
-                          showToastError(
-                              'Congratulations! \nYou have been Successfully registered !',
-                              context);
-                          setState(() {
-                            showSpinner = false;
-                          });
-                        } catch (e) {
-                          setState(() {
-                            showSpinner = false;
-                          });
-                          showToastError(
-                              'Please enter a valid Email Id. \n \nThe Password must be at least 6 characters long.',
-                              context);
-                        }
+                        //print('Name Error : $e');
                       },
+                      decoration: kTextField.copyWith(
+                          hintText: 'Please enter your name'),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      const Text('Already a Member !'),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: const Text(
-                          'Click here to Login',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
+                    //hintText: 'Enter your name',
+                    const SizedBox(
+                      height: 28.0,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      textAlign: TextAlign.center,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Please enter a valid email' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          email = value.trim();
+                        });
+                        //print('Email Address Error : $e');
+                      },
+                      decoration:
+                          kTextField.copyWith(hintText: 'Enter your email'),
+                    ),
+                    //hintText: 'Enter your email',
+                    const SizedBox(
+                      height: 28.0,
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      validator: (value) => value!.length < 8
+                          ? 'Password must be at least 8 characters'
+                          : null,
+                      onChanged: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
+                      decoration: kTextField.copyWith(
+                        hintText: 'Enter your password',
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 45.0,
-                  ),
-                  //kFuelledBy,
-                ],
+                    ),
+                    //hintText: 'Enter your password',
+                    const SizedBox(
+                      height: 45.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      child: Buttons(
+                        text: 'Register',
+                        onPressed: () async {
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          if (_formKey.currentState!.validate()) {
+                            dynamic newlySignedUpEmail =
+                                await _authEmail.signUpEmail(email, password);
+                            if (newlySignedUpEmail == null) {
+                              setState(() {
+                                showToastError(
+                                    'Please enter a valid Email Id \nOr \nThe Email Id is already registered ',
+                                    context);
+                                //String error = 'Please enter a valid email';
+                              });
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            } else {
+                              // setState(() {
+                              //   showToastWidget(
+                              //       'Congratulations! \nYou have been Successfully registered !',
+                              //       context);
+                              // });
+                            }
+                            // Navigator.pushNamed(context, '/chat');
+                            // try {
+                            //   await _authEmail.signUpEmail(email, password);
+                            //   Navigator.pushNamed(context, '/chat');
+                            //   showToastError(
+                            //       'Congratulations! \nYou have been Successfully registered !',
+                            //       context);
+                            // } catch (e) {
+                          }
+                          setState(() {
+                            showSpinner = false;
+                          });
+                        },
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const Text('Already a Member !'),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/login');
+                          },
+                          child: const Text(
+                            'Click here to Login',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 45.0,
+                    ),
+                    //kFuelledBy,
+                  ],
+                ),
               ),
             ),
           ),

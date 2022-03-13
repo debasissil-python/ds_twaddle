@@ -1,5 +1,5 @@
-class FirebaseUser {
+class TheUser {
   final String uid;
 
-  FirebaseUser({required this.uid});
+  TheUser({required this.uid});
 }

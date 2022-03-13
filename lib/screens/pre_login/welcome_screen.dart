@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../constants.dart';
 import '../../animated_texts.dart';
 
@@ -17,6 +18,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   late AnimationController controller;
   late Animation animateColor;
   late Animation animateLogo;
+
+  bool showSpinner = false;
 
   @override
   void initState() {
@@ -43,54 +46,68 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: animateColor.value,
-      body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Hero(
-                  tag: "logo",
-                  child: Image.asset(
-                    'images/Chat.png',
+      body: ModalProgressHUD(
+        color: Colors.black,
+        opacity: 0.5,
+        progressIndicator: CircularProgressIndicator(
+          backgroundColor: Colors.orange,
+        ),
+        inAsyncCall: showSpinner,
+        child: ListView(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Hero(
+                    tag: "logo",
+                    child: Image.asset(
+                      'images/Chat.png',
+                    ),
                   ),
-                ),
-                AnimatedTitle(
-                  text: 'twaddle',
-                  fontSize: 45.0,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                kAppInfo,
-                SizedBox(
-                  height: 30,
-                ),
-                Buttons(
-                  text: 'Login',
-                  onPressed: () async {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Buttons(
-                  text: 'Registration',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/registration');
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-              ],
+                  AnimatedTitle(
+                    text: 'twaddle',
+                    fontSize: 45.0,
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  kAppInfo,
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Buttons(
+                    text: 'Login',
+                    onPressed: () async {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      Navigator.pushNamed(context, '/login');
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Buttons(
+                    text: 'Registration',
+                    onPressed: () {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      Navigator.pushNamed(context, '/registration');
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             ),
-          ),
-          kFuelledBy,
-        ],
+            kFuelledBy,
+          ],
+        ),
       ),
     );
   }
