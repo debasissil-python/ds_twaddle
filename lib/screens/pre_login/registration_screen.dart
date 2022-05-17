@@ -1,16 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:ds_twaddle/services/auth.dart';
+//import 'package:ds_twaddle/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/buttons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../animated_texts.dart';
 import '../../constants.dart';
-
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-// import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-// import 'package:firebase_core/firebase_core.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -23,14 +18,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Icon home = const Icon(Icons.home);
   Icon login = const Icon(Icons.login);
   bool showSpinner = false;
-  final AuthService _authAnon = AuthService();
+  //final AuthService _authAnon = AuthService();
   // final _phoneController = TextEditingController();
   // final _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
@@ -196,31 +191,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 6.0),
-                          //Anon Registration
-                          child: Buttons(
-                              text: 'Anonymous',
-                              onPressed: () async {
-                                setState(() {
-                                  showSpinner = true;
-                                });
-                                dynamic result = await _authAnon.signUpAnon();
-                                if (result == null) {
-                                  //print('error signing in');
-                                  showToastError(
-                                      'Error signing in. \nPlease sign in again.',
-                                      context);
-                                } else {
-                                  //print(result.uid);
-                                  Navigator.pushNamed(context, '/chat');
-                                  openDialog();
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
-                                }
-                              }),
-                        ),
                       ],
                     ),
                   ),
@@ -273,3 +243,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       );
 }
+
+//For Anonymous Button
+// Padding(
+// padding: EdgeInsets.symmetric(vertical: 6.0),
+// //Anon Registration
+// child: Buttons(
+// text: 'Anonymous',
+// onPressed: () async {
+// setState(() {
+// showSpinner = true;
+// });
+// dynamic result = await _authAnon.signUpAnon();
+// if (result == null) {
+// //print('error signing in');
+// showToastError(
+// 'Error signing in. \nPlease sign in again.',
+// context);
+// } else {
+// //print(result.uid);
+// Navigator.pushNamed(context, '/chat');
+// openDialog();
+// setState(() {
+// showSpinner = false;
+// });
+// }
+// }),
+// ),

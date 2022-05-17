@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedTitle extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const AnimatedTitle({required this.text, required this.fontSize});
 
   final String text;

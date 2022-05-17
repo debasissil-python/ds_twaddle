@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:ds_twaddle/buttons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../constants.dart';
 import '../../animated_texts.dart';
@@ -53,20 +52,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           backgroundColor: Colors.orange,
         ),
         inAsyncCall: showSpinner,
-        child: ListView(
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+        child: ListView(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+            child: Container(
+              height: 550,
+              padding: const EdgeInsets.all(1),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Hero(
-                    tag: "logo",
-                    child: Image.asset(
-                      'images/Chat.png',
-                    ),
-                  ),
+                  Image.asset('images/Chat.png'),
                   AnimatedTitle(
                     text: 'twaddle',
                     fontSize: 45.0,
@@ -75,39 +71,18 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 20.0,
                   ),
                   kAppInfo,
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Buttons(
-                    text: 'Login',
-                    onPressed: () async {
-                      setState(() {
-                        showSpinner = true;
-                      });
-                      Navigator.pushNamed(context, '/login');
-                    },
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Buttons(
-                    text: 'Registration',
-                    onPressed: () {
-                      setState(() {
-                        showSpinner = true;
-                      });
-                      Navigator.pushNamed(context, '/registration');
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
+                  const SizedBox(
+                    height: 45.0,
                   ),
                 ],
               ),
             ),
-            kFuelledBy,
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 65.0,
+          ),
+          kFuelledBy,
+        ]),
       ),
     );
   }

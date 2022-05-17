@@ -17,16 +17,16 @@ class AuthService {
   }
 
   //Anon SignUp
-  Future signUpAnon() async {
-    try {
-      UserCredential resultAnon = await _authService.signInAnonymously();
-      User? userAnon = resultAnon.user;
-      return _allUsersFromFirebase(userAnon);
-    } catch (e) {
-      //print(e.toString());
-      return null;
-    }
-  }
+  // Future signUpAnon() async {
+  //   try {
+  //     UserCredential resultAnon = await _authService.signInAnonymously();
+  //     User? userAnon = resultAnon.user;
+  //     return _allUsersFromFirebase(userAnon);
+  //   } catch (e) {
+  //     //print(e.toString());
+  //     return null;
+  //   }
+  // }
 
   // Email Register
   Future signUpEmail(String email, String password) async {
@@ -35,7 +35,9 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
       User? userEmail = resultEmail.user;
       await DatabaseService(uid: userEmail!.uid).updateUserData(
-          'user emoji', loggedInUser.email.toString(), 'user messages');
+          loggedInUser.displayName.toString(),
+          loggedInUser.email.toString(),
+          'user messages');
       return _allUsersFromFirebase(userEmail);
     } catch (e) {
       //print(e.toString());

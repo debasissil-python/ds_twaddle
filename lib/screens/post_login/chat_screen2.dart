@@ -2,27 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/constants.dart';
-import '../../animated_texts.dart';
 import '../../services/auth.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import '../pre_login/login_screen.dart';
+import 'chat_screen.dart';
 import 'chat_screen1.dart';
-import 'chat_screen2.dart';
 import 'chat_screen3.dart';
 import 'chat_screen4.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 late User loggedInUser;
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class ChatScreen2 extends StatefulWidget {
+  const ChatScreen2({Key? key}) : super(key: key);
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _ChatScreen2State createState() => _ChatScreen2State();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreen2State extends State<ChatScreen2> {
   final messageTextController = TextEditingController();
   String messageTexts = '';
   final FirebaseAuth _authService = FirebaseAuth.instance;
@@ -118,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.red,
         shadowColor: Colors.transparent,
         actions: <Widget>[
           IconButton(
@@ -131,21 +130,21 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         centerTitle: true,
-        title: const AnimatedTitle(
-          text: 'twaddle',
-          fontSize: 25.0,
+        title: const Text(
+          'Love Room',
+          style: TextStyle(fontSize: 25.0),
         ),
       ),
       body: SafeArea(
         child: Container(
-          color: Colors.orangeAccent,
+          color: Colors.red,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const MessagesStream(),
               Container(
-                color: Colors.white,
+                color: Colors.redAccent.shade100,
                 padding: const EdgeInsets.all(10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +179,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           messageTextController.clear();
                           messageTexts.trim().isEmpty
                               ? null
-                              : _firestore.collection('chatMessages').add({
+                              : _firestore.collection('chatMessages2').add({
                                   'messages': messageTexts,
                                   'name': loggedInUser.email,
                                   'userEmoji': 'user emoji',
@@ -233,7 +232,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 _authLogOut.signOut();
                 selectedItem(context, 5);
-                //Navigator.pop(context, '/LoginScreen');
+                //Navigator.pop(context, '/login');
               },
             ),
             TextButton(
@@ -305,7 +304,7 @@ class MessagesStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore
-            .collection('chatMessages')
+            .collection('chatMessages2')
             .orderBy('timestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
@@ -318,9 +317,9 @@ class MessagesStream extends StatelessWidget {
               ),
             );
           } else {
-            var chatMessages = snapshot.data!.docs;
+            var chatMessages2 = snapshot.data!.docs;
 
-            for (var message in chatMessages) {
+            for (var message in chatMessages2) {
               final messageText = message['messages'];
               final messageSender = message['name'];
 
@@ -347,9 +346,9 @@ class MessagesStream extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 1),
                 child: Container(
                   padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent.shade100,
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(55),
                       topLeft: Radius.circular(55),
                     ),
@@ -461,5 +460,3 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
-
-//'${daterTimer}'

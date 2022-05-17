@@ -4,9 +4,6 @@ import '../../animated_texts.dart';
 import '../../constants.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../services/auth.dart';
-//import 'package:ds_twaddle/screens/pre_login/login_screen.dart';
-//import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 
 class EmailRegistration extends StatefulWidget {
   const EmailRegistration({Key? key}) : super(key: key);
@@ -17,7 +14,7 @@ class EmailRegistration extends StatefulWidget {
 
 class _EmailRegistrationState extends State<EmailRegistration> {
   Icon home = const Icon(Icons.home);
-  Icon login = const Icon(Icons.login);
+  //Icon login = const Icon(Icons.login);
 
   final AuthService _authEmail = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -31,9 +28,9 @@ class _EmailRegistrationState extends State<EmailRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightGreenAccent,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightGreenAccent,
         shadowColor: Colors.transparent,
         leading: IconButton(
           color: Colors.black,
@@ -47,15 +44,15 @@ class _EmailRegistrationState extends State<EmailRegistration> {
           text: 'twaddle',
           fontSize: 25.0,
         ),
-        actions: [
-          IconButton(
-            color: Colors.black,
-            icon: login,
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     color: Colors.black,
+        //     icon: login,
+        //     onPressed: () {
+        //       Navigator.pushNamed(context, '/login');
+        //     },
+        //   ),
+        // ],
       ),
       body: ModalProgressHUD(
         color: Colors.black,
@@ -72,7 +69,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
               padding: const EdgeInsets.all(1),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13),
-                color: Colors.white,
+                color: Colors.lightGreenAccent,
               ),
               child: Form(
                 key: _formKey,
@@ -81,18 +78,18 @@ class _EmailRegistrationState extends State<EmailRegistration> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     TextFormField(
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.name,
                       textAlign: TextAlign.center,
                       validator: (value) =>
-                          value!.isEmpty ? 'Please enter your name' : null,
-                      onChanged: (displayName) {
+                          value!.isEmpty ? 'Please enter a your name' : null,
+                      onChanged: (value) {
                         setState(() {
-                          name = displayName;
+                          name = value;
                         });
-                        //print('Name Error : $e');
+                        //print('Email Address Error : $e');
                       },
-                      decoration: kTextField.copyWith(
-                          hintText: 'Please enter your name'),
+                      decoration:
+                          kTextField.copyWith(hintText: 'Enter your name'),
                     ),
                     //hintText: 'Enter your name',
                     const SizedBox(
@@ -156,21 +153,7 @@ class _EmailRegistrationState extends State<EmailRegistration> {
                               setState(() {
                                 showSpinner = false;
                               });
-                            } else {
-                              // setState(() {
-                              //   showToastWidget(
-                              //       'Congratulations! \nYou have been Successfully registered !',
-                              //       context);
-                              // });
-                            }
-                            // Navigator.pushNamed(context, '/chat');
-                            // try {
-                            //   await _authEmail.signUpEmail(email, password);
-                            //   Navigator.pushNamed(context, '/chat');
-                            //   showToastError(
-                            //       'Congratulations! \nYou have been Successfully registered !',
-                            //       context);
-                            // } catch (e) {
+                            } else {}
                           }
                           setState(() {
                             showSpinner = false;

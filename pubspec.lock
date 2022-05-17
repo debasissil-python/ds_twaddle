@@ -175,6 +175,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  grouped_list:
+    dependency: "direct main"
+    description:
+      name: grouped_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.0"
   http_parser:
     dependency: transitive
     description:
@@ -183,7 +190,7 @@ packages:
     source: hosted
     version: "4.0.0"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -203,6 +210,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  liquid_swipe:
+    dependency: "direct main"
+    description:
+      name: liquid_swipe
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   matcher:
     dependency: transitive
     description:

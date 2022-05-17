@@ -42,7 +42,7 @@ const kAppInfo = Text(
   'Connecting like minded People Globally',
   textAlign: TextAlign.center,
   style: TextStyle(
-    color: Colors.black87,
+    color: Colors.white,
     fontSize: 18.0,
     fontWeight: FontWeight.w500,
     letterSpacing: 2,
@@ -72,7 +72,7 @@ const kFuelledBy = Text(
   textAlign: TextAlign.center,
   style: TextStyle(
     fontFamily: 'Pacifico',
-    color: Colors.black87,
+    color: Colors.black54,
     fontSize: 14.0,
     fontWeight: FontWeight.w300,
     letterSpacing: 2,
@@ -182,3 +182,12 @@ void showToastWidget(String message, BuildContext context) {
 //     ),
 //   ),
 // ),
+
+//
+// child: GroupedListView<MessageBubble, DateTime>(
+// padding: const EdgeInsets.only(top: 1),
+// elements: messageHolders,
+// groupBy: (element) => DateTime(2022),
+// groupHeaderBuilder: (MessageBubble element) =>
+// const SizedBox(height: 20),
+// itemBuilder: (context, MessageBubble element) =>

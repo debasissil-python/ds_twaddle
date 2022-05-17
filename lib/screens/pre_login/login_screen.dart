@@ -6,8 +6,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../animated_texts.dart';
 import '../../constants.dart';
 import '../../services/auth.dart';
-//import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -32,9 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[300],
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue[300],
         shadowColor: Colors.transparent,
         leading: IconButton(
           color: Colors.black,
@@ -51,18 +49,18 @@ class _LoginScreenState extends State<LoginScreen> {
           text: 'twaddle',
           fontSize: 25.0,
         ),
-        actions: [
-          IconButton(
-            color: Colors.black,
-            icon: registration,
-            onPressed: () {
-              setState(() {
-                showSpinner = true;
-              });
-              Navigator.pushNamed(context, '/registration');
-            },
-          ),
-        ],
+        //actions: [
+        // IconButton(
+        //   color: Colors.black,
+        //   icon: registration,
+        //   onPressed: () {
+        //     setState(() {
+        //       showSpinner = true;
+        //     });
+        //     Navigator.pushNamed(context, '/registration');
+        //   },
+        // ),
+        //],
       ),
       body: ModalProgressHUD(
         color: Colors.black,
@@ -79,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(1),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13),
-                color: Colors.white,
+                color: Colors.lightBlue[300],
               ),
               child: Form(
                 key: _formKey,
@@ -87,14 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    // Hero(
-                    //   tag: 'logo',
-                    //   child: Image.asset(
-                    //     'images/Chat.png',
-                    //     scale: 1,
-                    //   ),
-                    // ),
-
                     const SizedBox(
                       height: 28.0,
                     ),

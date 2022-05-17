@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Buttons extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const Buttons({required this.text, required this.onPressed});
 
   final String text;
