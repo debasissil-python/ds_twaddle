@@ -150,10 +150,12 @@ class _EmailRegistrationState extends State<EmailRegistration> {
                                     context);
                                 //String error = 'Please enter a valid email';
                               });
-                              setState(() {
-                                showSpinner = false;
-                              });
-                            } else {}
+                              // setState(() {
+                              //   showSpinner = false;
+                              // });
+                            } else {
+                              Navigator.pushNamed(context, '/landing');
+                            }
                           }
                           setState(() {
                             showSpinner = false;

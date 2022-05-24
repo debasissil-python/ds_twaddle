@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
     final currentUser = Provider.of<TheUser?>(context);
     //print(currentUser?.uid);
 
-    // Returns either Home or Chat Screen
+    // Returns either Home or Landing Screen
     if (currentUser == null) {
       return const Home();
     } else {

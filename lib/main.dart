@@ -7,6 +7,7 @@ import 'package:ds_twaddle/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'home.dart';
 import 'models/users.dart';
 
 void main() async {
@@ -34,6 +35,7 @@ class Twaddle extends StatelessWidget {
             '/emailRegistration': (context) => const EmailRegistration(),
             '/login': (context) => const LoginScreen(),
             '/landing': (context) => const LandingScreen(),
+            'home': (context) => const Home(),
           }),
     );
   }

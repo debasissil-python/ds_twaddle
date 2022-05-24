@@ -140,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 showToastError(
                                     'Please enter a valid Email Id or Password',
                                     context);
-                                //String error = 'Please enter a valid email';
                               });
                               setState(() {
                                 showSpinner = false;
@@ -160,7 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text('Not a Member ?'),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/emailRegistration');
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed('home');
                           },
                           child: Text(
                             'Click here to Register',
