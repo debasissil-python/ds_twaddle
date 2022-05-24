@@ -68,7 +68,7 @@ const kTextField = InputDecoration(
 );
 
 const kFuelledBy = Text(
-  'fuelled by:\n Hobby Networking',
+  'fuelled by:\n CodoWeb',
   textAlign: TextAlign.center,
   style: TextStyle(
     fontFamily: 'Pacifico',

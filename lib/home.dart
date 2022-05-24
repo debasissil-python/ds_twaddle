@@ -15,10 +15,10 @@ class Home extends StatelessWidget {
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
-          pages: [
-            const WelcomeScreen(),
-            Container(color: Colors.green, child: const EmailRegistration()),
-            const LoginScreen(),
+          pages: const [
+            WelcomeScreen(),
+            EmailRegistration(),
+            LoginScreen(),
           ],
         ),
       );

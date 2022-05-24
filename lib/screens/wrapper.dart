@@ -1,8 +1,8 @@
 import 'package:ds_twaddle/models/users.dart';
+import 'package:ds_twaddle/screens/post_login/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../home.dart';
-import 'package:ds_twaddle/screens/post_login/chat_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
     if (currentUser == null) {
       return const Home();
     } else {
-      return const ChatScreen();
+      return const LandingScreen();
     }
     //Home();
     //ChatScreen();

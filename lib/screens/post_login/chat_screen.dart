@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ds_twaddle/screens/post_login/landing_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ds_twaddle/constants.dart';
-import '../../animated_texts.dart';
 import '../../services/auth.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
@@ -52,7 +52,6 @@ class _ChatScreenState extends State<ChatScreen> {
       drawer: SizedBox(
         width: 275,
         child: Drawer(
-          //shape: BorderRadius.circular(15),
           backgroundColor: Colors.orange[50],
           elevation: 10,
           child: ListView(
@@ -76,29 +75,33 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               listNames(
-                icon: Icons.comment_outlined,
-                text: 'General Chat Room',
-                onClicked: () => selectedItem(context, 0),
-              ),
+                  icon: Icons.comment_outlined,
+                  text: 'All Chat Rooms',
+                  onClicked: () => selectedItem(context, 0)),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Political Chat Room',
+                text: 'General Chat Room',
                 onClicked: () => selectedItem(context, 1),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Love Chat Room',
+                text: 'Political Chat Room',
                 onClicked: () => selectedItem(context, 2),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Adult Chat Room',
+                text: 'Love Chat Room',
                 onClicked: () => selectedItem(context, 3),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Emotional Chat Room',
+                text: 'Adult Chat Room',
                 onClicked: () => selectedItem(context, 4),
+              ),
+              listNames(
+                icon: Icons.comment_outlined,
+                text: 'Emotional Chat Room',
+                onClicked: () => selectedItem(context, 5),
               ),
               const SizedBox(height: 15),
               const Divider(
@@ -131,9 +134,9 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         centerTitle: true,
-        title: const AnimatedTitle(
-          text: 'twaddle',
-          fontSize: 25.0,
+        title: const Text(
+          'General Room',
+          style: TextStyle(fontSize: 25.0),
         ),
       ),
       body: SafeArea(
@@ -232,7 +235,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: const Text("Yes"),
               onPressed: () {
                 _authLogOut.signOut();
-                selectedItem(context, 5);
+                selectedItem(context, 6);
                 //Navigator.pop(context, '/LoginScreen');
               },
             ),
@@ -266,31 +269,37 @@ void selectedItem(BuildContext context, int index) {
   switch (index) {
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen(),
+        builder: (context) => const LandingScreen(),
       ));
       break;
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen1(),
+        builder: (context) => const ChatScreen(),
       ));
       break;
     case 2:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen2(),
+        builder: (context) => const ChatScreen1(),
       ));
       break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen3(),
+        builder: (context) => const ChatScreen2(),
       ));
       break;
     case 4:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const ChatScreen3(),
+      ));
+      break;
+
+    case 5:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const ChatScreen4(),
       ));
       break;
 
-    case 5:
+    case 6:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const LoginScreen(),
       ));

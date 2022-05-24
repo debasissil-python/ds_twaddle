@@ -145,7 +145,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               setState(() {
                                 showSpinner = false;
                               });
-                            } else {}
+                            } else {
+                              Navigator.pushNamed(context, '/landing');
+                            }
                           }
                           setState(() {
                             showSpinner = false;
@@ -158,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text('Not a Member ?'),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/registration');
+                            Navigator.pushNamed(context, '/emailRegistration');
                           },
                           child: Text(
                             'Click here to Register',

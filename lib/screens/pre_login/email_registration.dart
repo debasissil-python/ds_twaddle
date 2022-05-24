@@ -14,7 +14,6 @@ class EmailRegistration extends StatefulWidget {
 
 class _EmailRegistrationState extends State<EmailRegistration> {
   Icon home = const Icon(Icons.home);
-  //Icon login = const Icon(Icons.login);
 
   final AuthService _authEmail = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -98,8 +97,9 @@ class _EmailRegistrationState extends State<EmailRegistration> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
-                      validator: (value) =>
-                          value!.isEmpty ? 'Please enter a valid email' : null,
+                      validator: (value) => value!.isEmpty
+                          ? 'Please enter a valid email id'
+                          : null,
                       onChanged: (value) {
                         setState(() {
                           email = value.trim();

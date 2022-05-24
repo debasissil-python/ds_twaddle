@@ -10,6 +10,7 @@ import 'chat_screen.dart';
 import 'chat_screen1.dart';
 import 'chat_screen3.dart';
 import 'chat_screen4.dart';
+import 'landing_screen.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 late User loggedInUser;
@@ -75,29 +76,33 @@ class _ChatScreen2State extends State<ChatScreen2> {
                 ),
               ),
               listNames(
-                icon: Icons.comment_outlined,
-                text: 'General Chat Room',
-                onClicked: () => selectedItem(context, 0),
-              ),
+                  icon: Icons.comment_outlined,
+                  text: 'All Chat Rooms',
+                  onClicked: () => selectedItem(context, 0)),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Political Chat Room',
+                text: 'General Chat Room',
                 onClicked: () => selectedItem(context, 1),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Love Chat Room',
+                text: 'Political Chat Room',
                 onClicked: () => selectedItem(context, 2),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Adult Chat Room',
+                text: 'Love Chat Room',
                 onClicked: () => selectedItem(context, 3),
               ),
               listNames(
                 icon: Icons.comment_outlined,
-                text: 'Emotional Chat Room',
+                text: 'Adult Chat Room',
                 onClicked: () => selectedItem(context, 4),
+              ),
+              listNames(
+                icon: Icons.comment_outlined,
+                text: 'Emotional Chat Room',
+                onClicked: () => selectedItem(context, 5),
               ),
               const SizedBox(height: 15),
               const Divider(
@@ -231,7 +236,7 @@ class _ChatScreen2State extends State<ChatScreen2> {
               child: const Text("Yes"),
               onPressed: () {
                 _authLogOut.signOut();
-                selectedItem(context, 5);
+                selectedItem(context, 6);
                 //Navigator.pop(context, '/login');
               },
             ),
@@ -265,31 +270,37 @@ void selectedItem(BuildContext context, int index) {
   switch (index) {
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen(),
+        builder: (context) => const LandingScreen(),
       ));
       break;
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen1(),
+        builder: (context) => const ChatScreen(),
       ));
       break;
     case 2:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen2(),
+        builder: (context) => const ChatScreen1(),
       ));
       break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ChatScreen3(),
+        builder: (context) => const ChatScreen2(),
       ));
       break;
     case 4:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const ChatScreen3(),
+      ));
+      break;
+
+    case 5:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const ChatScreen4(),
       ));
       break;
 
-    case 5:
+    case 6:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const LoginScreen(),
       ));

@@ -1,3 +1,7 @@
+import 'package:ds_twaddle/screens/post_login/landing_screen.dart';
+import 'package:ds_twaddle/screens/pre_login/email_registration.dart';
+import 'package:ds_twaddle/screens/pre_login/login_screen.dart';
+import 'package:ds_twaddle/screens/pre_login/welcome_screen.dart';
 import 'package:ds_twaddle/screens/wrapper.dart';
 import 'package:ds_twaddle/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,10 +24,17 @@ class Twaddle extends StatelessWidget {
       //value: AuthService().user,
       create: (value) => AuthService().allUsers,
       initialData: null,
-      child: const MaterialApp(
-        home: Wrapper(),
-        debugShowCheckedModeBanner: false,
-      ),
+      child: MaterialApp(
+          //home: const Wrapper(),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const Wrapper(),
+            '/welcome': (context) => const WelcomeScreen(),
+            '/emailRegistration': (context) => const EmailRegistration(),
+            '/login': (context) => const LoginScreen(),
+            '/landing': (context) => const LandingScreen(),
+          }),
     );
   }
 }
